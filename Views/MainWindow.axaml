@@ -1,0 +1,67 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:_4_4.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="_4_4.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="_4_4">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+     <Grid ColumnDefinitions="*,*"
+            RowDefinitions="auto,*">
+        <StackPanel Background = "purple"
+                    HorizontalAlignment = "Stretch"
+                    Grid.Row="0"
+                    Grid.ColumnSpan = "3"
+                    Orientation = "Horizontal">
+				<TextBlock Margin="10"> Main</TextBlock>
+				<TextBlock Margin="10"> About</TextBlock>
+                <ItemsControl ItemsSource="{Binding MainMenuEntity.MainTopicsList}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="10" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+                <TextBlock TextAlignment = "Right" Margin="10"> Profile</TextBlock>
+        </StackPanel>
+
+        <ListBox Grid.Row="1" Grid.Column="0" Background="blue" ItemsSource="{Binding BlogsEntities}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>	
+                        <StackPanel>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding Article}"/>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding Text}"/>
+                            <ItemsControl ItemsSource="{Binding Tags}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <ListBox Grid.Row="1" Grid.Column="1" Background="red" ItemsSource="{Binding NewsEntities}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                        <StackPanel>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding Text}"/>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding PublishTime}"/>
+                        </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</Window>
